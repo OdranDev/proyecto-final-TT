@@ -48,3 +48,5 @@ app.use(errorMiddleware);
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
+
+export default app

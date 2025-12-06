@@ -1,5 +1,6 @@
 import express from 'express';
 import authMiddleware from '../middlewares/auth.middleware.js';
+import { authorizeRoles } from '../middlewares/role.middleware.js';
 
 import {
   getAllProducts,
@@ -12,11 +13,16 @@ import {
 
 const router = express.Router();
 
-router.get('/', authMiddleware, getAllProducts);
-router.get('/:id', authMiddleware, getProductById);
-router.post('/create', authMiddleware, createProduct);
-router.put('/:id', authMiddleware, updateProduct);
-router.patch('/:id', authMiddleware, patchProduct);
-router.delete('/:id', authMiddleware, deleteProduct);
+/* ✅ RUTA DE DIAGNOSTICO */
+router.get('/ping', (req, res) => {
+  res.json({ ok: true, msg: 'products router works' });
+});
+
+router.get('/', authMiddleware, authorizeRoles('user', 'admin'), getAllProducts);
+router.get('/:id', authMiddleware, authorizeRoles('user', 'admin'), getProductById);
+router.post('/create', authMiddleware, authorizeRoles('admin'), createProduct);
+router.put('/:id', authMiddleware, authorizeRoles('admin'), updateProduct);
+router.patch('/:id', authMiddleware, authorizeRoles('admin'), patchProduct);
+router.delete('/:id', authMiddleware, authorizeRoles('admin'), deleteProduct);
 
 export default router;

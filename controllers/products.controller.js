@@ -66,8 +66,9 @@ export async function patchProduct(req, res) {
     const { id } = req.params;
     const payload = req.body;
     // PATCH: validación ligera que permite pocos campos - aquí solo comprobamos tipos si existen
+    // Por el momento solo para el campo PRICE
     if (payload.price != null && isNaN(Number(payload.price))) {
-      return res.status(400).json({ error: 'price must be a number' });
+      return res.status(400).json({ error: 'Precio debe ser un numero' });
     }
     const updated = await updateProductService(id, payload);
     return res.json(updated);

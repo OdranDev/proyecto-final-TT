@@ -26,7 +26,7 @@ if (rawOrigins === '*') {
       if (!origin || allowed.includes(origin)) {
         return callback(null, true);
       }
-      return callback(new Error('Not allowed by CORS'));
+      return callback(new Error('No permitido por CORS'));
     }
   };
 }
@@ -39,14 +39,10 @@ app.use((req, res, next) => {
   next();
 });
 
-/* ✅ RUTAS */
 app.use('/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 
-/* ✅ 404 SIEMPRE AL FINAL */
 app.use(notFoundMiddleware);
-
-/* ✅ MANEJO DE ERRORES AL FINAL DEL TODO */
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {

@@ -12,12 +12,6 @@ import {
 
 const router = express.Router();
 
-/* ✅ RUTA DE PRUEBA */
-router.get('/ping', (req, res) => {
-  res.json({ ok: true, msg: 'products router works' });
-});
-
-/* ✅ CRUD PROTEGIDO */
 router.get('/', authMiddleware, getAllProducts);
 router.get('/:id', authMiddleware, getProductById);
 router.post('/create', authMiddleware, createProduct);

@@ -9,7 +9,7 @@ export function validateProductPayload(payload) {
     if (payload.price == null || isNaN(Number(payload.price))) {
       errors.push('price is required and must be a number');
     }
-    // otros campos (opc): description, category, stock si los tenemos en firebase
+    // otros campos : description, category, stock si los tenemos en firebase
   }
   if (errors.length) {
     const err = new Error(errors.join(', '));
